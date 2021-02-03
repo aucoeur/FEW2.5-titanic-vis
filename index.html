@@ -4,11 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Titanic View</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
+    <div class="container">
+      <h1>Titanic Dataset Visualizations</h1>
+    </div>
+    <div class="container">
+      <div class="sort">
+        <h4>Sort</h4>
+        <button class="sortButt" id="sex">Gender</button>
+        <button class="sortButt" id="pclass">Class</button>
+        <button class="sortButt" id="embarked">Embarked</button>
+        <button class="sortButt"id="survived">Survived</button>
+        <hr />
+        <button class="sortButt" id="reset">Reset</button>
+      </div>
+      <div class="vis" id="titanic">
 
-    <div id="titanic"></div>
+      </div>
+    </div>
 
     <script src="script.js" type="module"></script>
   </body>
