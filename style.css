@@ -55,8 +55,18 @@ button {
     border: none;
     color: white;
     padding: 1em;
-    margin: 0.1em;
-    border-radius: 10%;
+    margin: 4px;
+    border-radius: 5px;
+}
+
+#reset {
+    border-color: rgba(101, 42, 113, 0.735);
+    background-color: rgba(101, 42, 113, 0.735);
+    border: none;
+}
+
+#reset:hover {
+    background-color: rgba(143, 64, 159, 0.927);
 }
 
 button:hover {

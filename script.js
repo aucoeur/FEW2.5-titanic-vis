@@ -7,18 +7,18 @@ const titanic = document.querySelector('#titanic');
 // titanic.style.gridTemplateColumns = 'repeat(20, 1fr)'
 titanic.style.gridGap = '2px'
 
+// Renders Passengers
+const passengers = data.map(p => {
+  return document.createElement('div')
+})
+
 function renderPassengers(data) {
   // Janky
-  const parent = document.getElementById("titanic");
+  // const parent = document.getElementById("titanic");
 
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-
-  // Renders Passengers
-  const passengers = data.map(p => {
-    return document.createElement('div')
-  })
+  // while (parent.firstChild) {
+  //   parent.removeChild(parent.firstChild);
+  // }
 
   passengers.forEach((p, i) => {
     titanic.appendChild(p);
@@ -31,8 +31,6 @@ function renderPassengers(data) {
     p.style.borderRadius = data[i].fields.sex === 'male' ? '0' : '50%';
 
     switch (data[i].fields.embarked) {
-      default:
-        p.style.backgroundColor = 'rgb(219, 219, 219)';
       case 'S':
         p.style.backgroundColor = 'rgb(64, 111, 168)';
         break;
@@ -42,6 +40,9 @@ function renderPassengers(data) {
       case 'Q':
         p.style.backgroundColor = 'rgb(242, 146, 104)';
         break;
+      default:
+        p.style.backgroundColor = 'rgb(219, 219, 219)';
+        break;
     }
   })
   console.log('rendered')
@@ -50,9 +51,10 @@ function renderPassengers(data) {
 renderPassengers(rawData);
 
 // Event Delegation
-const sortButtons = document.body.querySelector(".sort")
+const sortButtons = document.body.querySelector(".options")
 
 sortButtons.addEventListener('click', (event) => {
+
   // don't need switch if sortByProp
   data = [...rawData]
   event.target.id !== 'reset' ? sortByProperty(data, event.target.id) : null
@@ -88,10 +90,47 @@ function sortByProperty(data, property) {
   return data
     .sort((a, b) => {
       if (a.fields[property] > b.fields[property]) {
-        return -1
+        return 1;
       } else if (a.fields[property] < b.fields[property]) {
-        return 1
+        return -1;
+      } else if (a.fields[property] === b.fields[property]) {
+        return 0;
       }
-      return 0
     })
 }
+
+const pInfo = document.querySelector('#p-info')
+
+document.body.addEventListener('mouseover', (e) => {
+  if (e.target.matches('.passenger')) {
+    console.log('mouse enter passenger')
+    const id = e.target.dataset.id
+    const fields = data[id].fields
+
+    pInfo.style.display = 'block'
+    pInfo.style.position = 'absolute'
+    pInfo.style.left = `${e.pageX}px`
+    pInfo.style.top = `${e.pageY}px`
+    pInfo.style.backgroundColor = 'rgba(20, 20, 20, 0.75)'
+    pInfo.style.color = '#fff'
+    pInfo.style.fontSize = '0.5em'
+    pInfo.style.padding = '0.5em'
+
+    pInfo.innerHTML =
+      `
+    Name: ${fields.name}<br />
+    Age: ${fields.age}<br />
+    Embarked: ${fields.embarked}<br />
+    Fare: $${fields.fare}<br />
+    Gender: ${fields.sex}<br />
+    Survived: ${fields.survived}
+    `
+  }
+})
+
+document.body.addEventListener('mouseout', (e) => {
+  if (e.target.matches('.passenger')) {
+    pInfo.style.display = 'none'
+  }
+
+})
