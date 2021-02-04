@@ -93,9 +93,10 @@ function sortByProperty(data, property) {
         return 1;
       } else if (a.fields[property] < b.fields[property]) {
         return -1;
-      } else if (a.fields[property] === b.fields[property]) {
-        return 0;
+      } else if (a.fields[property] == undefined || b.fields[property] == undefined) {
+        return -1;
       }
+      return 0;
     })
 }
 
