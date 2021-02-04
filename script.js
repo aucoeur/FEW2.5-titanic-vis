@@ -89,11 +89,9 @@ sortButtons.addEventListener('click', (event) => {
 function sortByProperty(data, property) {
   return data
     .sort((a, b) => {
-      if (a.fields[property] > b.fields[property]) {
+      if (a.fields[property] > b.fields[property] || b.fields[property] == undefined ) {
         return 1;
-      } else if (a.fields[property] < b.fields[property]) {
-        return -1;
-      } else if (a.fields[property] == undefined || b.fields[property] == undefined) {
+      } else if (a.fields[property] < b.fields[property] || a.fields[property] == undefined) {
         return -1;
       }
       return 0;
