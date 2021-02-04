@@ -51,12 +51,13 @@ function renderPassengers(data) {
 renderPassengers(rawData);
 
 // Event Delegation
-const sortButtons = document.body.querySelector(".options")
+const sortButtons = document.body.querySelector(".optButt")
 
 sortButtons.addEventListener('click', (event) => {
 
   // don't need switch if sortByProp
   data = [...rawData]
+
   event.target.id !== 'reset' ? sortByProperty(data, event.target.id) : null
   renderPassengers(data)
 
